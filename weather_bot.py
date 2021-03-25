@@ -33,7 +33,7 @@ def main():
             f"Wind  speed: {int(round(weather['wind']['speed'], 0)) * 3.6} Km/h\n") # Convert from m/sec to km/h
     send_message(message)
         
-    # If today's rain/drizzle/th bring your umbrella
+    # If today's rain/drizzle/thunderstorm bring your umbrella
     if any(x in w["weather"][0]["description"] for w in forecast for x in ["rain", "thunderstorm", "drizzle"]):
         message += "\nDon't forget to bring your umbrella" + u"\U00002614"
         send_message(message)
