@@ -4,7 +4,7 @@ import json
 from datetime import datetime as dt
 import os
 
-# Return response from OpenWeather for Padova, Italy 
+# Return response from OpenWeather for your city
 def get_response():
     api_key = os.getenv("OPENWEATHER_API_KEY")
     base_url = "http://api.openweathermap.org/data/2.5/forecast" # 5 day weather forecast
