@@ -26,7 +26,12 @@ def send_message(message):
     
 # Main function
 def main():
-    forecast = get_response().json()["list"][0:7]
+    while True:
+        try:
+            forecast = get_response().json()["list"][0:7]
+        except KeyError:
+            continue
+        break
     message = f"Morning Artur,\n\nToday's forecast is:\n"
     for weather in forecast:
         time_dt = dt.strptime(weather["dt_txt"], "%Y-%m-%d %H:%M:%S")
@@ -44,3 +49,5 @@ def main():
         
 if __name__ == "__main__":
     main()
+
+#print(rq.get("https://api.telegram.org/bot1623160041:AAGmDVWWpvwszqjFTdTbnLliKwN0hcAzj3E/sendMessage?chat_id=-1001344207153&text=fasdfasdf").json())
