@@ -40,14 +40,11 @@ def main():
             f"Temperature: {int(round(weather['main']['temp'], 0))}°C\n"
             f"Feels like: {int(round(weather['main']['feels_like'], 0))}°C\n"
             f"Wind  speed: {int(round(weather['wind']['speed'], 0)) * 3.6} Km/h\n") # Convert from m/sec to km/h
-    send_message(message)
         
     # If today's rain/drizzle/thunderstorm bring your umbrella
     if any(x in w["weather"][0]["description"] for w in forecast for x in ["rain", "thunderstorm", "drizzle"]):
         message += "\nDon't forget to bring your umbrella" + u"\U00002614"
-        send_message(message)
+    send_message(message)
         
 if __name__ == "__main__":
     main()
-
-#print(rq.get("https://api.telegram.org/bot1623160041:AAGmDVWWpvwszqjFTdTbnLliKwN0hcAzj3E/sendMessage?chat_id=-1001344207153&text=fasdfasdf").json())
