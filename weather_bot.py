@@ -2,7 +2,11 @@
 import requests as rq
 import json
 from datetime import datetime as dt
+from dotenv import load_dotenv
 import os
+
+# Load environment variables
+load_dotenv()
 
 # Return response from OpenWeather for your city
 def get_response():
