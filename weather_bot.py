@@ -8,7 +8,7 @@ import os
 load_dotenv()
 
 # Return response from OpenWeather for your city
-def get_response():
+def get_weather_forecast():
     api_key = os.getenv("OPENWEATHER_API_KEY")
     base_url = "http://api.openweathermap.org/data/2.5/forecast" # 5 day weather forecast
     city = os.getenv("OPEN_WEATHER_CITY")
@@ -27,7 +27,7 @@ def send_message(message):
 def main():
     while True:
         try:
-            forecast = get_response().json()["list"][0:7]
+            forecast = get_weather_forecast().json()["list"][0:7]
         except KeyError:
             continue
         break
