@@ -1,3 +1,4 @@
 # Project-specific
 env/
 .env
+*log
