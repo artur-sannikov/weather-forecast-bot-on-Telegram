@@ -38,12 +38,12 @@ def build_message(forecast):
     
 # Main function
 def main():
-    while True:
+    for _ in range(10):
         try:
             forecast = get_weather_forecast().json()["list"][0:7]
+            break
         except KeyError:
             continue
-        break
     message = build_message(forecast)
     send_message(message)
         
