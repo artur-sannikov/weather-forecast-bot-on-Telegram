@@ -24,7 +24,9 @@ def send_message(message):
     rq.get(url + "/sendMessage", params={"chat_id": chat_id, "text": message})
 
 def build_message(forecast):
-    message_parts = [f"Morning Artur,\n\nToday's forecast is:\n"]
+    # Read user's name
+    username = os.getenv("USERNAME")
+    message_parts = [f"Morning {username},\n\nToday's forecast is:\n"]
     for weather in forecast:
         time_dt = dt.strptime(weather["dt_txt"], "%Y-%m-%d %H:%M:%S")
         message_parts.append(f"\nTime: {time_dt.strftime('%H:%M')}\n"
