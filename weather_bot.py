@@ -2,6 +2,26 @@ import requests as rq
 from datetime import datetime as dt
 from dotenv import load_dotenv
 import os
+import logging
+
+# Create logger
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+# Set up logging handlers
+file_handler = logging.FileHandler("logfile.log")
+file_handler.setLevel(logging.WARNING)
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.DEBUG)
+
+# Set logging format and set format for handlers
+log_format = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+file_handler.setFormatter(log_format)
+console_handler.setFormatter(log_format)
+
+# Add handlers to logger
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 # Load environment variables
 load_dotenv()
@@ -52,6 +72,8 @@ def build_message(forecast):
     """
     # Read user's name
     username = os.getenv("USERNAME")
+
+    # Build the message
     message_parts = [f"Morning {username},\n\nToday's forecast is:\n"]
     for weather in forecast:
         time_dt = dt.strptime(weather["dt_txt"], "%Y-%m-%d %H:%M:%S")
@@ -72,15 +94,19 @@ def main():
     Attempts to fetch weather forecast data up to 10 times.
     If successful, sends a formatted message to the specified chat.
     """
-    for _ in range(10):
+    for attempt in range(10):
         try:
             forecast = get_weather_forecast().json()["list"][0:7]
-            print(forecast)
             break
         except KeyError:
+            logger.warning(f"Attempt {attempt + 1}: Failed to fetch weather forecast.")
             continue
+        else:
+            logger.error("Failed to fetch weather forecast after 10 attempts.")
+            return
     message = build_message(forecast)
     send_message(message)
+    logger.info("Weather forecast message sent successfully.")
         
 if __name__ == "__main__":
     main()
