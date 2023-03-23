@@ -36,7 +36,7 @@ def get_weather_forecast():
         The API response containing the weather forecast data.
     """
     api_key = os.getenv("OPENWEATHER_API_KEY")
-    base_url = "http://api.openweathermap.org/data/2.5/forecast" # 5 day weather forecast
+    base_url = "https://api.openweathermap.org/data/2.5/forecast" # 5 day weather forecast
     city = os.getenv("OPENWEATHER_CITY")
     payload = {"q": city, "appid": api_key, "units": "metric"}
 
